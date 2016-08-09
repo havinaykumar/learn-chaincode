@@ -109,7 +109,7 @@ func (t *SimpleChaincode) read(stub *shim.ChaincodeStub, args []string) ([]byte,
 
 	key = args[0]
 	valAsbytes, err := stub.GetState(key)
-	actualData, err = strconv.Atoi(string(valAsbytes));
+	actualData, err = string(valAsbytes);
 	fmt.Println("Reading Key values "+ actualData);
 	
 	if err != nil {
