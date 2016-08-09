@@ -19,7 +19,7 @@ package main
 import (
 	"errors"
 	"fmt"
-
+        "strconv"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
 
@@ -109,6 +109,9 @@ func (t *SimpleChaincode) read(stub *shim.ChaincodeStub, args []string) ([]byte,
 
 	key = args[0]
 	valAsbytes, err := stub.GetState(key)
+	
+	fmt.Println("Reading Key values "+ strconv.Atoi(string(valAsbytes)));
+	
 	if err != nil {
 		jsonResp = "{\"Error\":\"Failed to get state for " + key + "\"}"
 		return nil, errors.New(jsonResp)
