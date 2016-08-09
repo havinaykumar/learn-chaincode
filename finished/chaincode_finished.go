@@ -58,7 +58,7 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 	} else if function == "write" {
 		return t.write(stub, args)
 	}
-	else if function == "read" {
+        if function == "read" {
 		return t.read(stub, args)
 	}
 	fmt.Println("invoke did not find func: " + function)
