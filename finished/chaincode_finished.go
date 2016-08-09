@@ -100,7 +100,7 @@ func (t *SimpleChaincode) write(stub *shim.ChaincodeStub, args []string) ([]byte
 
 // read - query function to read key/value pair
 func (t *SimpleChaincode) read(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
-	var key, jsonResp string
+	var key, jsonResp, actualData string
 	var err error
 
 	if len(args) != 1 {
