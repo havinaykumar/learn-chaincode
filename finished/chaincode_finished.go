@@ -48,7 +48,7 @@ func main() {
 }
 
 // Init resets all the things
-func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
+func (t *SimpleChaincode) Init(stub ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	if len(args) != 1 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 1")
 	}
@@ -62,7 +62,7 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
 }
 
 // Invoke isur entry point to invoke a chaincode function
-func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
+func (t *SimpleChaincode) Invoke(stub ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	fmt.Println("invoke is running " + function)
 
 	// Handle different functions
@@ -90,7 +90,7 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 }
 
 // Query is our entry point for queries
-func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
+func (t *SimpleChaincode) Query(stub ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	fmt.Println("query is running " + function)
 
 	// Handle different functions
@@ -115,7 +115,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 }
 
 // write - invoke function to write key/value pair
-func (t *SimpleChaincode) write(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
+func (t *SimpleChaincode) write(stub ChaincodeStubInterface, args []string) ([]byte, error) {
 	
 	var err error
 	fmt.Println("running write()")
@@ -139,7 +139,7 @@ func (t *SimpleChaincode) write(stub *shim.ChaincodeStub, args []string) ([]byte
 }
 
 // Adding LOCs 
-func (t *SimpleChaincode) addLoc(stub *shim.ChaincodeStub, args []string) ([]byte,error){
+func (t *SimpleChaincode) addLoc(stub ChaincodeStubInterface, args []string) ([]byte,error){
   var err error;
   var counter1 int;
   
@@ -176,7 +176,7 @@ func (t *SimpleChaincode) addLoc(stub *shim.ChaincodeStub, args []string) ([]byt
 }
 
 // Return specific LOC in the system
-    func (t *SimpleChaincode) getLoc(stub *shim.ChaincodeStub , args []string) ([]byte,error) {
+    func (t *SimpleChaincode) getLoc(stub ChaincodeStubInterface , args []string) ([]byte,error) {
      
     	loc_string,err :=stub.GetState(args[0])
 	
@@ -199,7 +199,7 @@ func (t *SimpleChaincode) addLoc(stub *shim.ChaincodeStub, args []string) ([]byt
 
 
  //Get number of LOCs in the system
-    func (t *SimpleChaincode) getNumberOfLocs(stub *shim.ChaincodeStub, args []string) ([]byte, error){
+    func (t *SimpleChaincode) getNumberOfLocs(stub ChaincodeStubInterface, args []string) ([]byte, error){
         valAsbytes:=strconv.Itoa(counter);
         return []byte(valAsbytes), nil;
     }
@@ -231,7 +231,7 @@ func (t *SimpleChaincode) addLoc(stub *shim.ChaincodeStub, args []string) ([]byt
     }
 
  //upload Bol document
-  func (t *SimpleChaincode) uploadBol(stub *shim.ChaincodeStub, args []string) ([]byte, error){
+  func (t *SimpleChaincode) uploadBol(stub ChaincodeStubInterface, args []string) ([]byte, error){
       
        var data string;
 	valueAsBytes , err :=stub.GetState(args[0]);
@@ -261,7 +261,7 @@ func (t *SimpleChaincode) addLoc(stub *shim.ChaincodeStub, args []string) ([]byt
     
     // get complete loc list
     
-func (t *SimpleChaincode) getLocList(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
+func (t *SimpleChaincode) getLocList(stub ChaincodeStubInterface, args []string) ([]byte, error) {
 	var list []string;
 	
 	for i := 1; i <=counter; i++ {
@@ -279,7 +279,7 @@ func (t *SimpleChaincode) getLocList(stub *shim.ChaincodeStub, args []string) ([
 }
 
  //upload contract document
- func (t *SimpleChaincode) uploadContract(stub *shim.ChaincodeStub, args []string) ([]byte, error){
+ func (t *SimpleChaincode) uploadContract(stub ChaincodeStubInterface, args []string) ([]byte, error){
       
        var contract string;
 	valueAsBytes , err :=stub.GetState(args[0]);
@@ -308,7 +308,7 @@ func (t *SimpleChaincode) getLocList(stub *shim.ChaincodeStub, args []string) ([
     
     
 // read - query function to read key/value pair
-func (t *SimpleChaincode) read(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
+func (t *SimpleChaincode) read(stub ChaincodeStubInterface, args []string) ([]byte, error) {
 	var jsonResp string
 	var err error
 
